@@ -1,1 +1,155 @@
+..................... creating an interface and making 2 methods abstract...............................
+
+package interface_Pro;
+
+public interface Login {
+	
+	boolean login(String username,String passwords);
+	
+	
+	interface registration{
+	boolean register(String username,String passwords);
+	
+
+}
+
+}
+
+
+
+/////////////////////////////////////////////// making an class and implementing the interface  with has a relationship//////////////////////////////////
+
+
+
+
+package interface_Pro;
+
+interface Registration {
+    boolean register(String username, String password);
+}
+
+// UserAuth class implementing Login and Registration
+public class UserAuth implements Login, Registration {
+    
+    public String[] usernames = new String[10];
+    public String[] passwords = new String[10];
+    public int userCount = 0;
+    
+    @Override
+    public boolean register(String username, String password) {
+        if (userCount >= usernames.length) {
+            System.out.println("User limit reached. Cannot register more users.");
+            return false;
+        }
+        
+        for (int i = 0; i < userCount; i++) {
+            if (usernames[i].equalsIgnoreCase(username)) {
+                System.out.println("Username already exists. Try a different one.");
+                return false;
+            }
+        }
+        
+        // Register the new user 
+        usernames[userCount] = username;
+        passwords[userCount] = password;
+        userCount++;
+        System.out.println("Registration successful.");
+        return true;
+    }
+    
+    @Override
+    public boolean login(String username, String password) {
+        for (int i = 0; i < userCount; i++) {
+            if (usernames[i].equals(username) && passwords[i].equals(password)) {
+                System.out.println("Login successful!");
+                return true;
+            }
+        }
+        
+        System.out.println("Invalid username or password.");
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////// main method //////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+package interface_Pro;
+import java.util.Scanner;
+
+public class Login_Main {
+	
+	public static void main(String[] args) {
+		
+	
+	
+	Scanner sc=new Scanner(System.in);
+	
+	UserAuth userauth=new UserAuth();
+	
+	while (true) {
+		int choice=sc.nextInt();
+		
+		if(choice==1) {
+			System.out.print("Enter username: ");
+            String username = sc.nextLine();
+            System.out.print("Enter password: ");
+            String password = sc.nextLine();
+            userauth.register(username, password);
+		}
+		
+		else if (choice==2) {
+			 System.out.print("Enter username: ");
+             String username = sc.nextLine();
+             System.out.print("Enter password: ");
+             String password = sc.nextLine();
+             userauth.login(username, password);
+			
+		}
+		else if (choice == 3) {
+            System.out.println("Exiting the system. Goodbye!");
+            System.exit(0);
+        } else {
+            System.out.println("Invalid choice, please try again.");
+        }
+		
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+}
+
+
+
+
+
+
 
